@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.animelistings.databinding.FragmentListingDetailsBinding
-import com.example.animelistings.databinding.FragmentListingsBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -20,7 +19,13 @@ class ListingDetailsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: ListingDetailsViewModel
+    private val detailsViewModel by lazy {
+        val id = ListingDetailsFragmentArgs.fromBundle(requireArguments()).id
+        ViewModelProvider(
+            this,
+            ListingDetailsViewModel.Factory(id, requireActivity().application)
+        )[ListingDetailsViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,16 +33,12 @@ class ListingDetailsFragment : Fragment() {
     ): View {
 
         _binding = FragmentListingDetailsBinding.inflate(inflater, container, false)
-
-        val id = ListingDetailsFragmentArgs.fromBundle(requireArguments()).id
-        val viewModelFactory = ListingDetailsViewModel.Factory(id, requireActivity().application)
-        viewModel =
-            ViewModelProvider(this, viewModelFactory)[ListingDetailsViewModel::class.java]
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.run {
+            viewModel = detailsViewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
 
         return binding.root
-
     }
 
     override fun onDestroyView() {

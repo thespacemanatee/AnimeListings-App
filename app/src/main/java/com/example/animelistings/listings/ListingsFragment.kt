@@ -22,11 +22,19 @@ class ListingsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel by lazy {
+    private val listingsViewModel by lazy {
         ViewModelProvider(
             this,
             ListingsViewModel.Factory(requireActivity().application)
         )[ListingsViewModel::class.java]
+    }
+
+    private val listingsAdapter by lazy {
+        ListingsAdapter(ListingsAdapter.OnClickListener {
+            findNavController().navigate(
+                ListingsFragmentDirections.actionListingsFragmentToListingDetailsFragment(it.id)
+            )
+        })
     }
 
     override fun onCreateView(
@@ -34,18 +42,13 @@ class ListingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListingsBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
-        val listingsAdapter = ListingsAdapter(ListingsAdapter.OnClickListener {
-            findNavController().navigate(
-                ListingsFragmentDirections.actionListingsFragmentToListingDetailsFragment(
-                    it.id
-                )
-            )
-        })
-        binding.listingsRecyclerview.adapter = listingsAdapter
-        binding.listingsRecyclerview.addItemDecoration(ItemDecorations.VerticalSpacing(30))
-        viewModel.anime.observe(viewLifecycleOwner) {
+        binding.run {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = listingsViewModel
+            listingsRecyclerview.adapter = listingsAdapter
+            listingsRecyclerview.addItemDecoration(ItemDecorations.VerticalSpacing(30))
+        }
+        listingsViewModel.anime.observe(viewLifecycleOwner) {
             listingsAdapter.submitList(it)
         }
 
