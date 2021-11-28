@@ -12,3 +12,4 @@ Built with ❤ ️in Kotlin
 - [ ] Show episodes
 - [ ] Add animations between screens etc.
 - [ ] Show and open web links
+- [x] Pull to refresh
