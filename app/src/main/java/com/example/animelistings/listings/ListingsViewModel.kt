@@ -35,6 +35,7 @@ class ListingsViewModel(application: Application) : AndroidViewModel(application
         viewModelJob.cancel()
     }
 
+    @Suppress("UNCHECKED_CAST")
     class Factory(private val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ListingsViewModel::class.java)) {

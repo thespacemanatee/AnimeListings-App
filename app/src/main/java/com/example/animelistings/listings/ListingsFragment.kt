@@ -33,21 +33,23 @@ class ListingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentListingsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         val listingsAdapter = ListingsAdapter(ListingsAdapter.OnClickListener {
-            findNavController().navigate(ListingsFragmentDirections.actionListingsFragmentToListingDetailsFragment(it.id))
+            findNavController().navigate(
+                ListingsFragmentDirections.actionListingsFragmentToListingDetailsFragment(
+                    it.id
+                )
+            )
         })
         binding.listingsRecyclerview.adapter = listingsAdapter
         binding.listingsRecyclerview.addItemDecoration(ItemDecorations.VerticalSpacing(30))
-        viewModel.anime.observe(viewLifecycleOwner, {
+        viewModel.anime.observe(viewLifecycleOwner) {
             listingsAdapter.submitList(it)
-        })
+        }
 
         return binding.root
-
     }
 
     override fun onDestroyView() {

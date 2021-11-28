@@ -23,38 +23,16 @@ data class NetworkAnime(
     val score: Double
 )
 
-fun NetworkAnimeContainer.asDomainModel(): List<Anime> {
-    return anime.map {
-        Anime(
-            it.id,
-            it.rank,
-            it.title,
-            it.url,
-            it.imageUrl,
-            it.type,
-            it.episodes ?: 0,
-            it.startDate,
-            it.endDate ?: "",
-            it.members,
-            it.score
-        )
-    }
+fun NetworkAnimeContainer.asDomainModel() = anime.map {
+    Anime(
+        it.id, it.rank, it.title, it.url, it.imageUrl, it.type, it.episodes ?: 0,
+        it.startDate, it.endDate ?: "", it.members, it.score
+    )
 }
 
-fun NetworkAnimeContainer.asDatabaseModel(): Array<DatabaseAnime> {
-    return anime.map {
-        DatabaseAnime(
-            it.id,
-            it.rank,
-            it.title,
-            it.url,
-            it.imageUrl,
-            it.type,
-            it.episodes ?: 0,
-            it.startDate,
-            it.endDate ?: "",
-            it.members,
-            it.score
-        )
-    }.toTypedArray()
-}
+fun NetworkAnimeContainer.asDatabaseModel() = anime.map {
+    DatabaseAnime(
+        it.id, it.rank, it.title, it.url, it.imageUrl, it.type, it.episodes ?: 0,
+        it.startDate, it.endDate ?: "", it.members, it.score
+    )
+}.toTypedArray()

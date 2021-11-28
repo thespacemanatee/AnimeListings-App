@@ -20,36 +20,14 @@ data class DatabaseAnime(
     val score: Double
 )
 
-fun DatabaseAnime.asDomainModel(): Anime {
-    return Anime(
-        id,
-        rank,
-        title,
-        url,
-        imageUrl,
-        type,
-        episodes,
-        startDate,
-        endDate,
-        members,
-        score
-    )
-}
+fun DatabaseAnime.asDomainModel() = Anime(
+    id, rank, title, url, imageUrl, type, episodes, startDate, endDate, members, score
+)
 
-fun List<DatabaseAnime>.asDomainModel(): List<Anime> {
-    return map {
-        Anime(
-            it.id,
-            it.rank,
-            it.title,
-            it.url,
-            it.imageUrl,
-            it.type,
-            it.episodes,
-            it.startDate,
-            it.endDate,
-            it.members,
-            it.score
-        )
-    }
+
+fun List<DatabaseAnime>.asDomainModel() = map {
+    Anime(
+        it.id, it.rank, it.title, it.url, it.imageUrl, it.type, it.episodes, it.startDate,
+        it.endDate, it.members, it.score
+    )
 }
