@@ -11,12 +11,13 @@ import com.example.animelistings.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 
 interface AnimeRepository {
     val anime: LiveData<List<Anime>>
 
-    suspend fun refreshAnime()
+    suspend fun refreshAnime(): Boolean
 }
 
 class AnimeRepositoryImpl @Inject constructor(
@@ -28,14 +29,16 @@ class AnimeRepositoryImpl @Inject constructor(
         it.asDomainModel()
     }
 
-    override suspend fun refreshAnime() {
+    override suspend fun refreshAnime(): Boolean {
         withContext(Dispatchers.IO) {
             try {
-                val animeList = service.getTopAnimeByType(1, "airing")
+                val animeList = service.getTopAnimeByType(1, "upcoming")
+                Timber.d("Refreshing anime...")
                 database.animeDao().insertAllAnime(*animeList.asDatabaseModel())
             } catch (e: HttpException) {
-                Log.e("AnimeRepository", e.message())
+                Timber.e(e.message())
             }
         }
+        return true
     }
 }

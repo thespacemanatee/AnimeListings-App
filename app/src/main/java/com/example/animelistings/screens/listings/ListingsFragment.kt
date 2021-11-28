@@ -16,7 +16,7 @@ import javax.inject.Inject
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 @AndroidEntryPoint
-class ListingsFragment : Fragment() {
+class ListingsFragment : Fragment(), ListingsView {
 
     private var _binding: FragmentListingsBinding? = null
 
@@ -26,6 +26,9 @@ class ListingsFragment : Fragment() {
 
     @Inject
     lateinit var listingsViewModel: ListingsViewModel
+
+    @Inject
+    lateinit var listingsFields: ListingsFields
 
     private val listingsAdapter by lazy {
         ListingsAdapter(ListingsAdapter.OnClickListener {
@@ -40,15 +43,8 @@ class ListingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListingsBinding.inflate(inflater, container, false)
-        binding.run {
-            lifecycleOwner = viewLifecycleOwner
-            viewModel = listingsViewModel
-            listingsRecyclerview.adapter = listingsAdapter
-            listingsRecyclerview.addItemDecoration(ItemDecorations.VerticalSpacing(30))
-        }
-        listingsViewModel.anime.observe(viewLifecycleOwner) {
-            listingsAdapter.submitList(it)
-        }
+        initView()
+        observeLiveData()
 
         return binding.root
     }
@@ -56,5 +52,32 @@ class ListingsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun refreshListings() {
+        listingsFields.refreshListingsListener.invoke()
+    }
+
+    private fun initView() {
+        binding.run {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = listingsViewModel
+            listingsRv.adapter = listingsAdapter
+            listingsRv.addItemDecoration(ItemDecorations.VerticalSpacing(30))
+            swipeRefresh.setOnRefreshListener {
+                refreshListings()
+            }
+        }
+    }
+
+    private fun observeLiveData() {
+        listingsViewModel.run{
+            anime.observe(viewLifecycleOwner) {
+                listingsAdapter.submitList(it)
+            }
+            isRefreshing.observe(viewLifecycleOwner) {
+                binding.swipeRefresh.isRefreshing = it
+            }
+        }
     }
 }

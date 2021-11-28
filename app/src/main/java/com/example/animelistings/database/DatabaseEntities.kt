@@ -24,7 +24,6 @@ fun DatabaseAnime.asDomainModel() = Anime(
     id, rank, title, url, imageUrl, type, episodes, startDate, endDate, members, score
 )
 
-
 fun List<DatabaseAnime>.asDomainModel() = map {
     Anime(
         it.id, it.rank, it.title, it.url, it.imageUrl, it.type, it.episodes, it.startDate,

@@ -18,4 +18,9 @@ object ListingsModule {
             ListingsViewModel(animeRepository)
         }
     }
+
+    @Provides
+    fun provideFields(viewModel: ListingsViewModel): ListingsFields {
+        return viewModel.Fields()
+    }
 }
