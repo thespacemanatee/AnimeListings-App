@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.animelistings.databinding.FragmentListingDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
+@AndroidEntryPoint
 class ListingDetailsFragment : Fragment() {
 
     private var _binding: FragmentListingDetailsBinding? = null
@@ -19,13 +22,8 @@ class ListingDetailsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val detailsViewModel by lazy {
-        val id = ListingDetailsFragmentArgs.fromBundle(requireArguments()).id
-        ViewModelProvider(
-            this,
-            ListingDetailsViewModel.Factory(id, requireActivity().application)
-        )[ListingDetailsViewModel::class.java]
-    }
+    @Inject
+    lateinit var detailsViewModel: ListingDetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

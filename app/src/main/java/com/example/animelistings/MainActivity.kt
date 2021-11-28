@@ -11,7 +11,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.fragment.NavHostFragment
 import com.example.animelistings.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }

@@ -10,10 +10,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.animelistings.adapter.ItemDecorations
 import com.example.animelistings.adapter.ListingsAdapter
 import com.example.animelistings.databinding.FragmentListingsBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
+@AndroidEntryPoint
 class ListingsFragment : Fragment() {
 
     private var _binding: FragmentListingsBinding? = null
@@ -22,12 +25,8 @@ class ListingsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val listingsViewModel by lazy {
-        ViewModelProvider(
-            this,
-            ListingsViewModel.Factory(requireActivity().application)
-        )[ListingsViewModel::class.java]
-    }
+    @Inject
+    lateinit var listingsViewModel: ListingsViewModel
 
     private val listingsAdapter by lazy {
         ListingsAdapter(ListingsAdapter.OnClickListener {

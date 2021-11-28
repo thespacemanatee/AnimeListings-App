@@ -4,7 +4,7 @@ Built with ❤ ️in Kotlin
 ### TODO:
 
 #### Platform Improvements
-- [ ] Implement dependency injection using Dagger
+- [x] Implement dependency injection using Hilt
 - [ ] Migrate to Jetpack Compose
 - [ ] Implement a common app theme/design system
 

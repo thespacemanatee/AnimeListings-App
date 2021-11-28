@@ -18,20 +18,5 @@ interface AnimeDao {
 
 @Database(entities = [DatabaseAnime::class], version = 1)
 abstract class AnimeDatabase : RoomDatabase() {
-    abstract val animeDao: AnimeDao
-}
-
-private lateinit var INSTANCE: AnimeDatabase
-
-fun getDatabase(context: Context): AnimeDatabase {
-    synchronized(AnimeDatabase::class.java) {
-        if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(
-                context.applicationContext, AnimeDatabase::class.java,
-                "anime"
-            )
-                .build()
-        }
-        return INSTANCE
-    }
+    abstract fun animeDao(): AnimeDao
 }

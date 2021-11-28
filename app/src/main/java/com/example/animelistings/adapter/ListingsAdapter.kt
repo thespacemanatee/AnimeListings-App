@@ -10,7 +10,8 @@ import com.example.animelistings.R
 import com.example.animelistings.databinding.ListAnimeItemBinding
 import com.example.animelistings.domain.Anime
 
-class ListingsAdapter(private val onClickListener: OnClickListener) : ListAdapter<Anime, ListingsAdapter.AnimeViewHolder>(DiffCallback()) {
+class ListingsAdapter(private val onClickListener: OnClickListener) :
+    ListAdapter<Anime, ListingsAdapter.AnimeViewHolder>(DiffCallback()) {
     class AnimeViewHolder(private val binding: ListAnimeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(anime: Anime) {
@@ -46,5 +47,4 @@ class DiffCallback : DiffUtil.ItemCallback<Anime>() {
     override fun areContentsTheSame(oldItem: Anime, newItem: Anime): Boolean {
         return oldItem == newItem
     }
-
 }
