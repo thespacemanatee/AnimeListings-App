@@ -6,8 +6,8 @@ import androidx.lifecycle.Transformations
 import com.example.animelistings.database.AnimeDatabase
 import com.example.animelistings.database.asDomainModel
 import com.example.animelistings.domain.Anime
+import com.example.animelistings.network.AnimeService
 import com.example.animelistings.network.asDatabaseModel
-import com.example.animelistings.network.service
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -20,7 +20,8 @@ interface AnimeRepository {
 }
 
 class AnimeRepositoryImpl @Inject constructor(
-    private val database: AnimeDatabase
+    private val database: AnimeDatabase,
+    private val service: AnimeService
 ) : AnimeRepository {
 
     override val anime = Transformations.map(database.animeDao().getAllAnime()) {

@@ -1,4 +1,4 @@
-package com.example.animelistings.listings
+package com.example.animelistings.screens.listings
 
 import androidx.fragment.app.Fragment
 import com.example.animelistings.repository.AnimeRepository

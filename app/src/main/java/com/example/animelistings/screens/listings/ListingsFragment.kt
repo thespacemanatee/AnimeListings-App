@@ -1,11 +1,10 @@
-package com.example.animelistings.listings
+package com.example.animelistings.screens.listings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.animelistings.adapter.ItemDecorations
 import com.example.animelistings.adapter.ListingsAdapter

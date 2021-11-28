@@ -1,4 +1,4 @@
-package com.example.animelistings.listings
+package com.example.animelistings.screens.listings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

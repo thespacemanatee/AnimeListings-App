@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.example.animelistings.listings.ListingsViewModel" />
+            type="com.example.animelistings.screens.listings.ListingsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".listings.ListingsFragment">
+        tools:context=".screens.listings.ListingsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listings_recyclerview"

@@ -1,4 +1,4 @@
-package com.example.animelistings.listingdetails
+package com.example.animelistings.screens.listing_details
 
 import androidx.fragment.app.Fragment
 import com.example.animelistings.database.AnimeDatabase

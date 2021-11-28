@@ -16,11 +16,3 @@ interface AnimeService {
         @Path("subtype") subtype: String
     ): NetworkAnimeContainer
 }
-
-private val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-
-private val retrofit =
-    Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(MoshiConverterFactory.create(moshi))
-        .build()
-
-val service: AnimeService = retrofit.create(AnimeService::class.java)

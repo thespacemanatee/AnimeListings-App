@@ -1,11 +1,9 @@
-package com.example.animelistings.listingdetails
+package com.example.animelistings.screens.listing_details
 
-import android.app.Application
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.animelistings.database.AnimeDatabase
 import com.example.animelistings.database.asDomainModel
-import java.lang.ClassCastException
 
 class ListingDetailsViewModel(id: Int, animeDatabase: AnimeDatabase) : ViewModel() {
 

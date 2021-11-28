@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/ListingsFragment"
-        android:name="com.example.animelistings.listings.ListingsFragment"
+        android:name="com.example.animelistings.screens.listings.ListingsFragment"
         android:label="@string/listings_fragment_label"
         tools:layout="@layout/fragment_listings">
 
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/ListingDetailsFragment"
-        android:name="com.example.animelistings.listingdetails.ListingDetailsFragment"
+        android:name="com.example.animelistings.screens.listing_details.ListingDetailsFragment"
         android:label="@string/listing_details_fragment_label"
         tools:layout="@layout/fragment_listing_details">
 

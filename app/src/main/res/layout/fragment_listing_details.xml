@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.animelistings.listingdetails.ListingDetailsViewModel" />
+            type="com.example.animelistings.screens.listing_details.ListingDetailsViewModel" />
     </data>
 
     <ScrollView
@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".listingdetails.ListingDetailsFragment">
+            tools:context=".screens.listing_details.ListingDetailsFragment">
 
             <ImageView
                 android:id="@+id/image_view"
