@@ -1,7 +1,9 @@
-package com.example.animelistings.database
+package com.example.animelistings.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.animelistings.database.AnimeDao
+import com.example.animelistings.database.AnimeDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

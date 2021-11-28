@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.animelistings.adapter.ItemDecorations
 import com.example.animelistings.adapter.ListingsAdapter
@@ -24,11 +25,11 @@ class ListingsFragment : Fragment(), ListingsView {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var listingsViewModel: ListingsViewModel
+    private val listingsViewModel: ListingsViewModel by viewModels()
 
-    @Inject
-    lateinit var listingsFields: ListingsFields
+    private val listingsFields by lazy {
+        listingsViewModel.Fields()
+    }
 
     private val listingsAdapter by lazy {
         ListingsAdapter(ListingsAdapter.OnClickListener {
@@ -71,7 +72,7 @@ class ListingsFragment : Fragment(), ListingsView {
     }
 
     private fun observeLiveData() {
-        listingsViewModel.run{
+        listingsViewModel.run {
             anime.observe(viewLifecycleOwner) {
                 listingsAdapter.submitList(it)
             }

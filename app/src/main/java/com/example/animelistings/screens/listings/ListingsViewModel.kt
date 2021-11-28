@@ -4,13 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.animelistings.repository.AnimeRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ListingsViewModel @Inject constructor(
+@HiltViewModel
+class ListingsViewModel @Inject internal constructor(
     private val animeRepository: AnimeRepository
 ) : ViewModel() {
 
