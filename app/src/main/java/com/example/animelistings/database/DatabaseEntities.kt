@@ -3,12 +3,11 @@ package com.example.animelistings.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.animelistings.domain.Anime
-import com.squareup.moshi.Json
 
 @Entity
 data class DatabaseAnime(
-    @PrimaryKey val id: Int,
-    val rank: Int,
+    val id: Int,
+    @PrimaryKey val rank: Int,
     val title: String,
     val url: String,
     val imageUrl: String,

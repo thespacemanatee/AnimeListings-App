@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.animelistings.screens.listing_details.ListingDetailsViewModel" />
+            type="com.example.animelistings.viewmodels.ListingsViewModel" />
     </data>
 
     <ScrollView

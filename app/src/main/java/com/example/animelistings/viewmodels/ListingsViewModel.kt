@@ -1,9 +1,10 @@
-package com.example.animelistings.screens.listings
+package com.example.animelistings.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.example.animelistings.database.AnimeDatabase
+import com.example.animelistings.database.asDomainModel
 import com.example.animelistings.repository.AnimeRepository
+import com.example.animelistings.screens.listings.ListingsFields
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListingsViewModel @Inject internal constructor(
-    private val animeRepository: AnimeRepository
+    private val animeRepository: AnimeRepository,
+    animeDatabase: AnimeDatabase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     inner class Fields : ListingsFields {
@@ -22,7 +25,11 @@ class ListingsViewModel @Inject internal constructor(
         }
     }
 
-    val anime = animeRepository.anime
+    val animeCollection = animeRepository.animeCollection
+    val selectedAnime =
+        Transformations.map(animeDatabase.animeDao().getAnimeById(savedStateHandle["id"] ?: 0)) {
+            it.asDomainModel()
+        }
     val isRefreshing: LiveData<Boolean>
         get() = _isRefreshing
 

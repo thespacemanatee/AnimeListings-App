@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.animelistings.screens.listings.ListingsViewModel" />
+            type="com.example.animelistings.viewmodels.ListingsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

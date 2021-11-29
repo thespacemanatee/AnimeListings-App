@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.animelistings.adapter.ItemDecorations
 import com.example.animelistings.adapter.ListingsAdapter
 import com.example.animelistings.databinding.FragmentListingsBinding
+import com.example.animelistings.viewmodels.ListingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -73,7 +73,7 @@ class ListingsFragment : Fragment(), ListingsView {
 
     private fun observeLiveData() {
         listingsViewModel.run {
-            anime.observe(viewLifecycleOwner) {
+            animeCollection.observe(viewLifecycleOwner) {
                 listingsAdapter.submitList(it)
             }
             isRefreshing.observe(viewLifecycleOwner) {

@@ -1,12 +1,10 @@
 package com.example.animelistings.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animelistings.R
 import com.example.animelistings.databinding.ListAnimeItemBinding
 import com.example.animelistings.domain.Anime
 

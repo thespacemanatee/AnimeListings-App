@@ -13,4 +13,3 @@ data class Anime(
     val members: Int,
     val score: Double
 )
-
