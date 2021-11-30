@@ -14,6 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -63,9 +64,6 @@ fun HomeFeedScreen(
  *
  * This sets up the scaffold with the top app bar, and surrounds the [hasListingsContent] with refresh,
  * loading and error handling.
- *
- * This helper functions exists because [HomeFeedWithArticleDetailsScreen] and [HomeFeedScreen] are
- * extremely similar, except for the rendered content when there are posts to display.
  */
 @Composable
 private fun HomeScreenWithList(
@@ -191,9 +189,8 @@ fun AnimeListing(
     anime: Anime,
     navigateToListingDetails: (Int) -> Unit,
 ) {
-    Card(
-        modifier = Modifier.fillMaxHeight()
-    ) {
+    var animeTitle by remember { mutableStateOf(anime.title) }
+    Card {
         Column(
             modifier = Modifier.clickable(onClick = { navigateToListingDetails(anime.id) })
         ) {
@@ -203,7 +200,15 @@ fun AnimeListing(
                     .padding(12.dp)
                     .fillMaxHeight()
             ) {
-                Text(anime.title)
+                Text(
+                    text = animeTitle,
+                    style = MaterialTheme.typography.subtitle2,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    onTextLayout = {
+                        if (it.lineCount < 2) animeTitle = animeTitle.plus("\n")
+                    }
+                )
             }
         }
     }
@@ -272,7 +277,6 @@ private fun HomeTopAppBar(
     elevation: Dp,
     openDrawer: () -> Unit
 ) {
-    val title = stringResource(id = R.string.app_name)
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.home_title)) },
         navigationIcon = {

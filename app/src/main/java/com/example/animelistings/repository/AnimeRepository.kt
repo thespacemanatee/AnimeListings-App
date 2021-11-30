@@ -31,7 +31,7 @@ class AnimeRepositoryImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             res = try {
                 val animeList = service.getTopAnimeByType(1, "tv")
-                Timber.d("Refreshing anime: ${animeList.anime}")
+                Timber.d("Refreshing ${animeList.anime.size} anime...")
                 database.animeDao().run {
                     insertAllAnime(*animeList.asDatabaseModel())
                 }
