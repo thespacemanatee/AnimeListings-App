@@ -1,16 +1,15 @@
 <resources>
     <string name="app_name">AnimeListings</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="listings_fragment_label">Listings</string>
-    <string name="listing_details_fragment_label">Listing Details</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="fab_content_description">FAB</string>
     <string name="cd_open_navigation_drawer">Open navigation drawer</string>
     <string name="retry">Retry</string>
     <string name="home_tap_to_load_content">Tap to load content</string>
+    <string name="cd_navigate_up">Navigate up</string>
+    <string name="listing_details_share_anime">Share anime</string>
+    <string name="cd_add_to_favorites">Add to favorites</string>
+    <string name="unbookmark">unbookmark</string>
+    <string name="bookmark">bookmark</string>
+    <string name="cd_share">Share</string>
+    <string name="category">Category: \n%1$s</string>
 </resources>

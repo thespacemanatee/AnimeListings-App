@@ -206,9 +206,7 @@ fun AnimeListing(
 @Composable
 fun BannerImage(anime: Anime) {
     Image(
-        painter = rememberImagePainter(
-            data = anime.imageUrl,
-        ),
+        painter = rememberImagePainter(data = anime.imageUrl),
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier

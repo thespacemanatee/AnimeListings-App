@@ -1,5 +1,6 @@
 package com.example.animelistings.ui.home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ScaffoldState
@@ -7,8 +8,12 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.animelistings.ui.home.HomeScreenType.Feed
+import com.example.animelistings.ui.home.HomeScreenType.ListingDetails
+import com.example.animelistings.ui.listing_details.ListingDetailsScreen
 
 @Composable
 fun HomeRoute(
@@ -20,14 +25,64 @@ fun HomeRoute(
     // show. This allows the associated state to survive beyond that decision, and therefore
     // we get to preserve the scroll throughout any changes to the content.
     val homeListLazyListState = rememberLazyListState()
+    val listingDetailLazyListStates = uiState.results.associate { anime ->
+        key(anime.id) {
+            anime.id to rememberLazyListState()
+        }
+    }
 
-    HomeFeedScreen(
-        uiState = uiState,
-        onSelectListing = { homeViewModel.selectListing(it) },
-        onRefreshListings = { homeViewModel.refreshListings() },
-        onErrorDismiss = { homeViewModel.errorShown() },
-        homeListLazyListState = homeListLazyListState,
-        scaffoldState = scaffoldState,
-        modifier = Modifier.padding(horizontal = 8.dp)
-    )
+    when (getHomeScreenType(uiState)) {
+        Feed -> {
+            HomeFeedScreen(
+                uiState = uiState,
+                onSelectListing = { homeViewModel.selectListing(it) },
+                onRefreshListings = { homeViewModel.refreshListings() },
+                onErrorDismiss = { homeViewModel.errorShown() },
+                homeListLazyListState = homeListLazyListState,
+                scaffoldState = scaffoldState,
+                modifier = Modifier.padding(horizontal = 8.dp)
+            )
+        }
+        ListingDetails -> {
+            uiState.selectedAnime?.let {
+                ListingDetailsScreen(
+                    anime = it,
+                    onBack = { homeViewModel.interactedWithHome() },
+                    lazyListState = listingDetailLazyListStates.getValue(
+                        uiState.selectedAnime!!.id
+                    )
+                )
+            }
+
+            // If we are just showing the detail, have a back press switch to the home.
+            // This doesn't take anything more than notifying that we "interacted with the home page"
+            // since that is what drives the display of the home page
+            BackHandler {
+                homeViewModel.interactedWithHome()
+            }
+        }
+
+    }
 }
+
+/**
+ * A precise enumeration of which type of screen to display at the home route.
+ *
+ * There are 2 options:
+ * - [Feed], which displays just the list of all articles
+ * - [ListingDetails], which displays just a specific article.
+ */
+private enum class HomeScreenType {
+    Feed,
+    ListingDetails
+}
+
+/**
+ * Returns the current [HomeScreenType] to display, based on whether or not the screen is expanded
+ * and the [HomeUiState].
+ */
+@Composable
+private fun getHomeScreenType(
+    uiState: HomeUiState
+): HomeScreenType =
+    if (uiState.isListingOpen) ListingDetails else Feed

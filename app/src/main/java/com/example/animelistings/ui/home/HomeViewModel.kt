@@ -14,7 +14,7 @@ import javax.inject.Inject
 data class HomeUiState(
     val results: List<Anime> = listOf(),
     val isLoading: Boolean = false,
-    val selectedAnimeId: Int? = null,
+    val selectedAnime: Anime? = null,
     val isListingOpen: Boolean = false,
     val error: Error? = null
 ) {
@@ -74,12 +74,21 @@ class HomeViewModel @Inject internal constructor(
     }
 
     /**
+     * Notify that the user interacted with the home page
+     */
+    fun interactedWithHome() {
+        _uiState.update {
+            it.copy(isListingOpen = false)
+        }
+    }
+
+    /**
      * Notify that the user interacted with the listings details
      */
     private fun interactedWithListingDetails(animeId: Int) {
-        _uiState.update {
+        _uiState.update { it ->
             it.copy(
-                selectedAnimeId = animeId,
+                selectedAnime = it.results.find { it.id == animeId },
                 isListingOpen = true
             )
         }
