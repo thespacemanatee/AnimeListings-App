@@ -12,4 +12,5 @@
     <string name="bookmark">bookmark</string>
     <string name="cd_share">Share</string>
     <string name="category">Category: \n%1$s</string>
+    <string name="home_title">Home</string>
 </resources>

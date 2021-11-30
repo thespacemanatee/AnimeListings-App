@@ -34,6 +34,7 @@ fun HomeFeedScreen(
     onSelectListing: (Int) -> Unit,
     onRefreshListings: () -> Unit,
     onErrorDismiss: () -> Unit,
+    openDrawer: () -> Unit,
     homeListLazyListState: LazyListState,
     scaffoldState: ScaffoldState,
     modifier: Modifier = Modifier,
@@ -42,6 +43,7 @@ fun HomeFeedScreen(
         uiState = uiState,
         onRefreshListings = onRefreshListings,
         onErrorDismiss = onErrorDismiss,
+        openDrawer = openDrawer,
         homeListLazyListState = homeListLazyListState,
         scaffoldState = scaffoldState,
         modifier = modifier
@@ -69,6 +71,7 @@ private fun HomeScreenWithList(
     uiState: HomeUiState,
     onRefreshListings: () -> Unit,
     onErrorDismiss: () -> Unit,
+    openDrawer: () -> Unit,
     homeListLazyListState: LazyListState,
     scaffoldState: ScaffoldState,
     modifier: Modifier = Modifier,
@@ -80,6 +83,7 @@ private fun HomeScreenWithList(
         scaffoldState = scaffoldState,
         topBar = {
             HomeTopAppBar(
+                openDrawer = openDrawer,
                 elevation = if (!homeListLazyListState.isScrolled) 0.dp else 4.dp
             )
         },
@@ -263,12 +267,13 @@ private fun FullScreenLoading() {
 @Composable
 private fun HomeTopAppBar(
     elevation: Dp,
+    openDrawer: () -> Unit
 ) {
     val title = stringResource(id = R.string.app_name)
     TopAppBar(
-        title = { Text(text = "Home") },
+        title = { Text(text = stringResource(id = R.string.home_title)) },
         navigationIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = openDrawer) {
                 Icon(
                     painter = painterResource(R.drawable.ic_drawer),
                     contentDescription = stringResource(R.string.cd_open_navigation_drawer),
@@ -303,6 +308,7 @@ fun PreviewHomeListDrawerScreen() {
             onSelectListing = {},
             onRefreshListings = {},
             onErrorDismiss = {},
+            openDrawer = {},
             homeListLazyListState = rememberLazyListState(),
             scaffoldState = rememberScaffoldState(),
         )

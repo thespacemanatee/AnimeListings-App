@@ -14,6 +14,7 @@ import com.example.animelistings.ui.home.HomeViewModel
 fun AnimeListingsNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
+    openDrawer: () -> Unit = {},
     startDestination: String = AnimeListingsDestinations.HOME_ROUTE,
 ) {
     NavHost(
@@ -23,7 +24,7 @@ fun AnimeListingsNavGraph(
     ) {
         composable(AnimeListingsDestinations.HOME_ROUTE) {
             val homeViewModel: HomeViewModel = hiltViewModel()
-            HomeRoute(homeViewModel)
+            HomeRoute(homeViewModel, openDrawer)
         }
 //        composable(AnimeListingsDestinations.LISTINGS_DETAILS_ROUTE) {
 //            val interestsViewModel: InterestsViewModel = viewModel(

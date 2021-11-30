@@ -24,7 +24,6 @@ import androidx.navigation.NavHostController
  */
 object AnimeListingsDestinations {
     const val HOME_ROUTE = "home"
-    const val LISTINGS_DETAILS_ROUTE = "listing_details"
 }
 
 /**
@@ -43,15 +42,6 @@ class AnimeListingsNavigationActions(navController: NavHostController) {
             // reselecting the same item
             launchSingleTop = true
             // Restore state when reselecting a previously selected item
-            restoreState = true
-        }
-    }
-    val navigateToListingDetails: () -> Unit = {
-        navController.navigate(AnimeListingsDestinations.LISTINGS_DETAILS_ROUTE) {
-            popUpTo(navController.graph.findStartDestination().id) {
-                saveState = true
-            }
-            launchSingleTop = true
             restoreState = true
         }
     }

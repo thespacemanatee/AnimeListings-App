@@ -18,6 +18,7 @@ import com.example.animelistings.ui.listing_details.ListingDetailsScreen
 @Composable
 fun HomeRoute(
     homeViewModel: HomeViewModel,
+    openDrawer: () -> Unit,
     scaffoldState: ScaffoldState = rememberScaffoldState()
 ) {
     val uiState by homeViewModel.uiState.collectAsState()
@@ -38,6 +39,7 @@ fun HomeRoute(
                 onSelectListing = { homeViewModel.selectListing(it) },
                 onRefreshListings = { homeViewModel.refreshListings() },
                 onErrorDismiss = { homeViewModel.errorShown() },
+                openDrawer = openDrawer,
                 homeListLazyListState = homeListLazyListState,
                 scaffoldState = scaffoldState,
                 modifier = Modifier.padding(horizontal = 8.dp)
