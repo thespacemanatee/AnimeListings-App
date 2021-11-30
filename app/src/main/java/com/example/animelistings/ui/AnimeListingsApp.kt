@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
+import com.example.animelistings.ui.theme.AnimeListingsTheme
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
@@ -16,7 +17,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun AnimeListingsApp() {
-    MaterialTheme {
+    AnimeListingsTheme {
         ProvideWindowInsets {
             val systemUiController = rememberSystemUiController()
             val darkIcons = MaterialTheme.colors.isLight

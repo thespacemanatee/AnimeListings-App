@@ -25,6 +25,7 @@ fun HomeRoute(
         uiState = uiState,
         onSelectListing = { homeViewModel.selectListing(it) },
         onRefreshListings = { homeViewModel.refreshListings() },
+        onErrorDismiss = { homeViewModel.errorShown() },
         homeListLazyListState = homeListLazyListState,
         scaffoldState = scaffoldState,
         modifier = Modifier.padding(horizontal = 8.dp)

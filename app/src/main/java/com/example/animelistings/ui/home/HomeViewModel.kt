@@ -28,13 +28,13 @@ class HomeViewModel @Inject internal constructor(
     private val animeRepository: AnimeRepository,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(HomeUiState())
+    private val _uiState = MutableStateFlow(HomeUiState(isLoading = true))
     val uiState = _uiState.stateIn(viewModelScope, SharingStarted.Eagerly, _uiState.value)
 
     init {
         viewModelScope.launch {
             animeRepository.animeCollection.collect { collection ->
-                _uiState.update { it.copy(results = collection) }
+                _uiState.update { it.copy(results = collection, isLoading = false) }
             }
         }
         refreshListings()
@@ -62,6 +62,15 @@ class HomeViewModel @Inject internal constructor(
     fun selectListing(animeId: Int) {
         // Treat selecting a detail as simply interacting with it
         interactedWithListingDetails(animeId)
+    }
+
+    /**
+     * Notify that an error was displayed on the screen
+     */
+    fun errorShown() {
+        _uiState.update {
+            it.copy(error = null)
+        }
     }
 
     /**

@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.animelistings.R
 import com.example.animelistings.domain.Anime
+import com.example.animelistings.ui.theme.AnimeListingsTheme
 import com.example.animelistings.utils.isScrolled
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -32,6 +33,7 @@ fun HomeFeedScreen(
     uiState: HomeUiState,
     onSelectListing: (Int) -> Unit,
     onRefreshListings: () -> Unit,
+    onErrorDismiss: () -> Unit,
     homeListLazyListState: LazyListState,
     scaffoldState: ScaffoldState,
     modifier: Modifier = Modifier,
@@ -39,6 +41,7 @@ fun HomeFeedScreen(
     HomeScreenWithList(
         uiState = uiState,
         onRefreshListings = onRefreshListings,
+        onErrorDismiss = onErrorDismiss,
         homeListLazyListState = homeListLazyListState,
         scaffoldState = scaffoldState,
         modifier = modifier
@@ -65,6 +68,7 @@ fun HomeFeedScreen(
 private fun HomeScreenWithList(
     uiState: HomeUiState,
     onRefreshListings: () -> Unit,
+    onErrorDismiss: () -> Unit,
     homeListLazyListState: LazyListState,
     scaffoldState: ScaffoldState,
     modifier: Modifier = Modifier,
@@ -127,7 +131,8 @@ private fun HomeScreenWithList(
 
         // If onRefreshListings or onErrorDismiss change while the LaunchedEffect is running,
         // don't restart the effect and use the latest lambda values.
-        val onRefreshPostsState by rememberUpdatedState(onRefreshListings)
+        val onRefreshListingsState by rememberUpdatedState(onRefreshListings)
+        val onErrorDismissState by rememberUpdatedState(onErrorDismiss)
 
         // Effect running in a coroutine that displays the Snackbar on the screen
         // If there's a change to errorMessageText, retryMessageText or scaffoldState,
@@ -138,8 +143,10 @@ private fun HomeScreenWithList(
                 actionLabel = retryMessageText
             )
             if (snackbarResult == SnackbarResult.ActionPerformed) {
-                onRefreshPostsState()
+                onRefreshListingsState()
             }
+            // Once the message is displayed and dismissed, notify the ViewModel
+            onErrorDismissState()
         }
     }
 }
@@ -292,11 +299,12 @@ fun PreviewHomeListDrawerScreen() {
 //    val postsFeed = runBlocking {
 //        (BlockingFakePostsRepository().getPostsFeed() as Resource.Success<*>).data
 //    }
-    MaterialTheme {
+    AnimeListingsTheme {
         HomeFeedScreen(
             uiState = HomeUiState(),
             onSelectListing = {},
             onRefreshListings = {},
+            onErrorDismiss = {},
             homeListLazyListState = rememberLazyListState(),
             scaffoldState = rememberScaffoldState(),
         )

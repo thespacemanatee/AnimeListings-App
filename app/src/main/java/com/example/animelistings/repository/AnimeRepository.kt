@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -37,9 +36,9 @@ class AnimeRepositoryImpl @Inject constructor(
                     insertAllAnime(*animeList.asDatabaseModel())
                 }
                 Resource.Success(true)
-            } catch (e: HttpException) {
-                Timber.e(e.message())
-                Resource.Error(e.message())
+            } catch (e: Exception) {
+                Timber.e(e)
+                Resource.Error("Network error: ${e.message.orEmpty()}")
             }
         }
         return res
