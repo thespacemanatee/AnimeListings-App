@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. In this app, these colors
      don't affect the Composable functions, just the color of the Status Bar.
