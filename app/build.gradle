@@ -23,7 +23,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
@@ -91,11 +91,10 @@ dependencies {
     // Room
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-    // Landscapist
-    implementation "com.github.skydoves:landscapist-glide:$landscapist_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    // Coil
+    implementation("io.coil-kt:coil-compose:$coil_version")
     implementation "com.jakewharton.timber:timber:$timber_version"
     testImplementation "junit:junit:4.+"
     androidTestImplementation "androidx.test.ext:junit:1.1.3"

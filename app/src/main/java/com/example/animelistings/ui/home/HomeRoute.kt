@@ -1,11 +1,14 @@
 package com.example.animelistings.ui.home
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomeRoute(
@@ -24,5 +27,6 @@ fun HomeRoute(
         onRefreshListings = { homeViewModel.refreshListings() },
         homeListLazyListState = homeListLazyListState,
         scaffoldState = scaffoldState,
+        modifier = Modifier.padding(horizontal = 8.dp)
     )
 }

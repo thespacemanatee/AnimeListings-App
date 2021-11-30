@@ -1,9 +1,9 @@
 package com.example.animelistings.ui.home
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.animelistings.domain.Anime
 import com.example.animelistings.repository.AnimeRepository
-import com.example.animelistings.screens.listings.ListingsFields
 import com.example.animelistings.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -28,34 +28,16 @@ class HomeViewModel @Inject internal constructor(
     private val animeRepository: AnimeRepository,
 ) : ViewModel() {
 
-    inner class Fields : ListingsFields {
-        override val refreshListingsListener: () -> Unit = {
-            refreshListings()
-        }
-    }
-
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState = _uiState.stateIn(viewModelScope, SharingStarted.Eagerly, _uiState.value)
 
-//    val selectedAnime =
-//        Transformations.map(animeDatabase.animeDao().getAnimeById(savedStateHandle["id"] ?: 0)) {
-//            it.asDomainModel()
-//        }
-//    val isRefreshing: LiveData<Boolean>
-//        get() = _isRefreshing
-//
-//    private val _isRefreshing = MutableLiveData(false)
-//
-//    private val viewModelJob = SupervisorJob()
-//    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     init {
-        refreshListings()
         viewModelScope.launch {
             animeRepository.animeCollection.collect { collection ->
                 _uiState.update { it.copy(results = collection) }
             }
         }
+        refreshListings()
     }
 
     fun refreshListings() {
@@ -93,9 +75,4 @@ class HomeViewModel @Inject internal constructor(
             )
         }
     }
-
-//    override fun onCleared() {
-//        super.onCleared()
-//        viewModelJob.cancel()
-//    }
 }

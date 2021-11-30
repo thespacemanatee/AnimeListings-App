@@ -2,6 +2,7 @@ package com.example.animelistings.ui.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -9,18 +10,19 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import com.example.animelistings.R
 import com.example.animelistings.domain.Anime
 import com.example.animelistings.utils.isScrolled
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.skydoves.landscapist.glide.GlideImage
 
 /**
  * The home screen displaying just the article feed.
@@ -162,7 +164,9 @@ private fun AnimeList(
     LazyVerticalGrid(
         modifier = modifier,
         state = state,
-        cells = GridCells.Fixed(2)
+        cells = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(results) { AnimeListing(it, onListingTapped) }
     }
@@ -173,15 +177,20 @@ fun AnimeListing(
     anime: Anime,
     navigateToListingDetails: (Int) -> Unit,
 ) {
-    Row(
-        modifier = Modifier
-            .clickable(onClick = { navigateToListingDetails(anime.id) })
-            .padding(16.dp)
+    Card(
+        modifier = Modifier.fillMaxHeight()
     ) {
-        BannerImage(anime)
-        Column(modifier = Modifier.weight(1f)) {
-//            PostTitle(post)
-//            AuthorAndReadTime(post)
+        Column(
+            modifier = Modifier.clickable(onClick = { navigateToListingDetails(anime.id) })
+        ) {
+            BannerImage(anime)
+            Row(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .fillMaxHeight()
+            ) {
+                Text(anime.title)
+            }
         }
     }
 }
@@ -189,8 +198,15 @@ fun AnimeListing(
 
 @Composable
 fun BannerImage(anime: Anime) {
-    GlideImage(
-        imageModel = anime.imageUrl,
+    Image(
+        painter = rememberImagePainter(
+            data = anime.imageUrl,
+        ),
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .height(250.dp)
+            .fillMaxWidth()
     )
 }
 
@@ -245,20 +261,11 @@ private fun HomeTopAppBar(
 ) {
     val title = stringResource(id = R.string.app_name)
     TopAppBar(
-        title = {
-            Icon(
-                painter = painterResource(R.drawable.ic_launcher_background),
-                contentDescription = title,
-                tint = MaterialTheme.colors.onBackground,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 4.dp, top = 10.dp)
-            )
-        },
+        title = { Text(text = "Home") },
         navigationIcon = {
             IconButton(onClick = {}) {
                 Icon(
-                    painter = painterResource(android.R.drawable.ic_menu_sort_by_size),
+                    painter = painterResource(R.drawable.ic_drawer),
                     contentDescription = stringResource(R.string.cd_open_navigation_drawer),
                     tint = MaterialTheme.colors.primary
                 )
