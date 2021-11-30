@@ -6,7 +6,6 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.example.jetnews.ui.theme.*
 
 private val LightThemeColors = lightColors(
     primary = Red700,
@@ -17,7 +16,6 @@ private val LightThemeColors = lightColors(
     onSecondary = Color.White,
     error = Red800,
     onBackground = Color.Black,
-
 )
 
 private val DarkThemeColors = darkColors(

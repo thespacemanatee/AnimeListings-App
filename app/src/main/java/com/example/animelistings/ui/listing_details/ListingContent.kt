@@ -79,4 +79,3 @@ private fun ListingHeaderImage(anime: Anime) {
     )
     Spacer(Modifier.height(defaultSpacerSize))
 }
-

@@ -19,11 +19,13 @@ object AnimeServiceModule {
     @Provides
     @Singleton
     fun provideService(): AnimeService {
-        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-        val retrofit =
-            Retrofit.Builder().baseUrl(BASE_URL)
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .build()
-        return retrofit.create(AnimeService::class.java)
+        return Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(
+                MoshiConverterFactory.create(
+                    Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+                )
+            )
+            .build()
+            .create(AnimeService::class.java)
     }
 }
