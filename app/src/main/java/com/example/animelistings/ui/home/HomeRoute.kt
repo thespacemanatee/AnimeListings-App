@@ -1,7 +1,6 @@
 package com.example.animelistings.ui.home
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
@@ -9,8 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.example.animelistings.ui.home.HomeScreenType.Feed
 import com.example.animelistings.ui.home.HomeScreenType.ListingDetails
 import com.example.animelistings.ui.listing_details.ListingDetailsScreen
@@ -42,7 +39,6 @@ fun HomeRoute(
                 openDrawer = openDrawer,
                 homeListLazyListState = homeListLazyListState,
                 scaffoldState = scaffoldState,
-                modifier = Modifier.padding(horizontal = 8.dp)
             )
         }
         ListingDetails -> {

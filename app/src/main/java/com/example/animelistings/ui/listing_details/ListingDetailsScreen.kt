@@ -40,7 +40,7 @@ fun ListingDetailsScreen(
 ) {
     Row(modifier.fillMaxSize()) {
         val context = LocalContext.current
-        ArticleScreenContent(
+        ListingDetailsScreenContent(
             anime = anime,
             // Allow opening the Drawer if the screen is not expanded
             navigationIconContent = {
@@ -65,14 +65,14 @@ fun ListingDetailsScreen(
 }
 
 /**
- * Stateless Article Screen that displays a single post.
+ * Stateless Listing Details Screen that displays a single anime.
  *
- * @param post (state) item to display
+ * @param anime (state) item to display
  * @param navigationIconContent (UI) content to show for the navigation icon
  * @param bottomBarContent (UI) content to show for the bottom bar
  */
 @Composable
-private fun ArticleScreenContent(
+private fun ListingDetailsScreenContent(
     anime: Anime,
     navigationIconContent: @Composable (() -> Unit)? = null,
     bottomBarContent: @Composable () -> Unit = { },

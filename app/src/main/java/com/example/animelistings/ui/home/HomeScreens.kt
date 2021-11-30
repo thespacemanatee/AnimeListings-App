@@ -22,6 +22,7 @@ import com.example.animelistings.R
 import com.example.animelistings.domain.Anime
 import com.example.animelistings.ui.theme.AnimeListingsTheme
 import com.example.animelistings.utils.isScrolled
+import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
@@ -88,8 +89,10 @@ private fun HomeScreenWithList(
             )
         },
         modifier = modifier
-    ) { innerPadding ->
-        val contentModifier = Modifier.padding(innerPadding)
+    ) {
+        val contentModifier = Modifier
+            .padding(horizontal = 16.dp)
+            .navigationBarsPadding()
 
         LoadingContent(
             empty = uiState.results.isEmpty() && uiState.isLoading,
