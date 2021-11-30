@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.animelistings.adapter.ItemDecorations
 import com.example.animelistings.adapter.ListingsAdapter
 import com.example.animelistings.databinding.FragmentListingsBinding
-import com.example.animelistings.viewmodels.ListingsViewModel
+import com.example.animelistings.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -25,10 +25,10 @@ class ListingsFragment : Fragment(), ListingsView {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val listingsViewModel: ListingsViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
 
     private val listingsFields by lazy {
-        listingsViewModel.Fields()
+        homeViewModel.Fields()
     }
 
     private val listingsAdapter by lazy {
@@ -45,7 +45,7 @@ class ListingsFragment : Fragment(), ListingsView {
     ): View {
         _binding = FragmentListingsBinding.inflate(inflater, container, false)
         initView()
-        observeLiveData()
+//        observeLiveData()
 
         return binding.root
     }
@@ -62,7 +62,7 @@ class ListingsFragment : Fragment(), ListingsView {
     private fun initView() {
         binding.run {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = listingsViewModel
+            viewModel = homeViewModel
             listingsRv.adapter = listingsAdapter
             listingsRv.addItemDecoration(ItemDecorations.VerticalSpacing(30))
             swipeRefresh.setOnRefreshListener {
@@ -71,14 +71,14 @@ class ListingsFragment : Fragment(), ListingsView {
         }
     }
 
-    private fun observeLiveData() {
-        listingsViewModel.run {
-            animeCollection.observe(viewLifecycleOwner) {
-                listingsAdapter.submitList(it)
-            }
-            isRefreshing.observe(viewLifecycleOwner) {
-                binding.swipeRefresh.isRefreshing = it
-            }
-        }
-    }
+//    private fun observeLiveData() {
+//        homeViewModel.run {
+//            animeCollection.observe(viewLifecycleOwner) {
+//                listingsAdapter.submitList(it)
+//            }
+//            isRefreshing.observe(viewLifecycleOwner) {
+//                binding.swipeRefresh.isRefreshing = it
+//            }
+//        }
+//    }
 }

@@ -1,4 +1,4 @@
-package com.example.animelistings.util
+package com.example.animelistings.utils
 
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule

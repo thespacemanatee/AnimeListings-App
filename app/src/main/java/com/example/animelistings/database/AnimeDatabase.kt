@@ -1,15 +1,15 @@
 package com.example.animelistings.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AnimeDao {
     @Query("SELECT * FROM DatabaseAnime")
-    fun getAllAnime(): LiveData<List<DatabaseAnime>>
+    fun getAllAnime(): Flow<List<DatabaseAnime>>
 
     @Query("SELECT * FROM DatabaseAnime WHERE id = :id")
-    fun getAnimeById(id: Int): LiveData<DatabaseAnime>
+    fun getAnimeById(id: Int): Flow<DatabaseAnime>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllAnime(vararg anime: DatabaseAnime)

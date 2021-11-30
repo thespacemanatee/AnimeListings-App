@@ -1,4 +1,4 @@
-package com.example.animelistings.util
+package com.example.animelistings.utils
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

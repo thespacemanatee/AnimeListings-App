@@ -8,15 +8,16 @@ buildscript {
         nav_version = "2.3.5"
         lifecycle_version = '2.4.0'
         arch_version = "2.1.0"
-        compose_version = "1.0.5"
+        compose_version = '1.1.0-beta03'
+        accompanist_version = '0.21.3-beta'
         moshi_version = "1.12.0"
         retrofit_version = "2.9.0"
-        coroutines_version = "1.5.0"
+        coroutines_version = "1.5.2"
         recyclerview_version = "1.2.1"
         room_version = "2.4.0-beta02"
         glide_version = "4.12.0"
         landscapist_version = "1.4.3"
-        hilt_version = "2.38.1"
+        hilt_version = '2.40.2'
         timber_version = "5.0.1"
     }
     dependencies {

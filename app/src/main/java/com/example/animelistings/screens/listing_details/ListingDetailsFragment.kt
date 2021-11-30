@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.animelistings.databinding.FragmentListingDetailsBinding
-import com.example.animelistings.viewmodels.ListingsViewModel
+import com.example.animelistings.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -22,7 +22,7 @@ class ListingDetailsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val listingsViewModel: ListingsViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +32,7 @@ class ListingDetailsFragment : Fragment() {
         _binding = FragmentListingDetailsBinding.inflate(inflater, container, false)
         binding.run {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = listingsViewModel
+            viewModel = homeViewModel
         }
 
         return binding.root
