@@ -27,8 +27,9 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.animelistings.R
 import com.example.animelistings.domain.Anime
-import com.example.animelistings.ui.listing_details.ListingDetailsConstants.appBarCollapsedHeight
-import com.example.animelistings.ui.listing_details.ListingDetailsConstants.appBarExpandedHeight
+import com.example.animelistings.ui.listing_details.ListingDetailsConstants.AppBarCollapsedHeight
+import com.example.animelistings.ui.listing_details.ListingDetailsConstants.AppBarExpandedHeight
+import com.example.animelistings.ui.listing_details.ListingDetailsConstants.AppBarHorizontalPadding
 import com.example.animelistings.ui.theme.AnimeListingsTheme
 import com.example.animelistings.ui.utils.ShareButton
 import com.google.accompanist.insets.navigationBarsPadding
@@ -53,7 +54,14 @@ fun ListingDetailsScreen(
     ListingDetailsScreenContent(
         anime = anime,
         // Allow opening the Drawer if the screen is not expanded
-        navigationIconContent = { BackNavigationButton(onBack) },
+        navigationIconContent = {
+            BackNavigationButton(
+                onBack,
+                modifier = Modifier
+                    .height(AppBarCollapsedHeight)
+                    .padding(horizontal = AppBarHorizontalPadding)
+            )
+        },
         // Show the bottom bar if the screen is not expanded
         bottomBarContent = {
             BottomBar(
@@ -96,7 +104,7 @@ private fun ListingDetailsCollapsingToolbar(
     state: LazyListState,
     navigationIconContent: @Composable (() -> Unit)? = null,
 ) {
-    val imageHeight = appBarExpandedHeight - appBarCollapsedHeight
+    val imageHeight = AppBarExpandedHeight - AppBarCollapsedHeight
     val maxOffset = with(LocalDensity.current) { imageHeight.roundToPx() }
     val offset = min(state.firstVisibleItemScrollOffset, maxOffset)
     val offsetProgress = max(0f, offset * 3f - maxOffset * 2f) / maxOffset
@@ -106,7 +114,7 @@ private fun ListingDetailsCollapsingToolbar(
         elevation = if (offset == maxOffset) 4.dp else 0.dp,
         backgroundColor = MaterialTheme.colors.surface,
         modifier = Modifier
-            .height(appBarExpandedHeight)
+            .height(AppBarExpandedHeight)
             .offset { IntOffset(x = 0, y = -offset) },
     ) {
         Column {
@@ -114,7 +122,7 @@ private fun ListingDetailsCollapsingToolbar(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(appBarCollapsedHeight),
+                    .height(AppBarCollapsedHeight),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
@@ -153,13 +161,14 @@ private fun ListingHeaderImage(
 }
 
 @Composable
-private fun BackNavigationButton(onBack: () -> Unit) {
+private fun BackNavigationButton(
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(appBarCollapsedHeight)
+        modifier = modifier
     ) {
         IconButton(
             onClick = onBack,

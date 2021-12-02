@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.animelistings.domain.Anime
-import com.example.animelistings.ui.listing_details.ListingDetailsConstants.appBarExpandedHeight
+import com.example.animelistings.ui.listing_details.ListingDetailsConstants.AppBarExpandedHeight
 
 @Composable
 fun ListingContent(
@@ -16,7 +16,7 @@ fun ListingContent(
     state: LazyListState = rememberLazyListState()
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(top = appBarExpandedHeight),
+        contentPadding = PaddingValues(top = AppBarExpandedHeight),
         state = state,
     ) {
         item {  }
